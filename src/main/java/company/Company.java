@@ -5,6 +5,7 @@ import people.Driver;
 import people.Employee;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -13,12 +14,18 @@ import java.util.Optional;
 @Table(name = "Company")
 public class Company {
     @Id
+    @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "name should not be empty")
+    @Size(max = 20, message = "Company name has to be with up to 20 characters!")
+    @Pattern(regexp = "^([A-Z]).*", message = "Company name has to start with capital letter!")
     @Column(name = "name", nullable = false)
     private String name;
 
+
+    @DecimalMin(value = "2000.00", message = "earnings have to be at least 2000", inclusive = true)
     @Column(name = "earnings")
     private BigDecimal earnings;
 
@@ -89,12 +96,12 @@ public class Company {
         this.drivers = drivers;
     }
 
-    //    @Override
-//    public String toString() {
-//        return "Company{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", earnings=" + earnings +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", earnings=" + earnings +
+                '}';
+    }
 }

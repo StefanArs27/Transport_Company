@@ -1,5 +1,10 @@
 package menu;
 
+import company.Company;
+import company.Package;
+import company.Vehicle;
+import people.Client;
+import people.Driver;
 import service.implement.*;
 
 import java.util.Scanner;
@@ -41,9 +46,10 @@ public class Menu {
                     System.out.println("1 -> create company");
                     System.out.println("2 -> select company");
                     System.out.println("3 -> modify company");
-                    System.out.println("4 -> sort companies by name");
-                    System.out.println("5 -> sort companies by earnings");
-                    System.out.println("6 -> delete company");
+                    System.out.println("4 -> show list of companies");
+                    System.out.println("5 -> sort companies by name");
+                    System.out.println("6 -> sort companies by earnings");
+                    System.out.println("7 -> delete company");
                     System.out.println("0 -> return");
                     switch (Integer.parseInt(scanner.nextLine())) {
                         case 1:
@@ -56,14 +62,20 @@ public class Menu {
                             companyImplementService.modifyCompany();
                             break;
                         case 4:
-                            companyImplementService.sortCompaniesByName();
+                            companyImplementService.readCompanies();
                             break;
                         case 5:
+                            companyImplementService.sortCompaniesByName();
+                            break;
+
+                        case 6:
                             companyImplementService.sortCompaniesByEarnings();
                             break;
-                        case 6:
+
+                        case 7:
                             companyImplementService.removeCompany();
                             break;
+
                         default:
                             break;
                     }
@@ -73,7 +85,8 @@ public class Menu {
                     System.out.println("1 -> create package");
                     System.out.println("2 -> select package");
                     System.out.println("3 -> modify package");
-                    System.out.println("4 -> delete package");
+                    System.out.println("4 -> show list of packages");
+                    System.out.println("5 -> delete package");
                     System.out.println("0 -> return");
                     switch (Integer.parseInt(scanner.nextLine())) {
                         case 1:
@@ -86,6 +99,9 @@ public class Menu {
                             packageImplementService.modifyPackage();
                             break;
                         case 4:
+                            packageImplementService.readPackages();
+                            break;
+                        case 5:
                             packageImplementService.removePackage();
                             break;
                         default:
@@ -97,8 +113,9 @@ public class Menu {
                     System.out.println("1 -> create vehicle");
                     System.out.println("2 -> select vehicle");
                     System.out.println("3 -> modify vehicle");
-                    System.out.println("4 -> sort vehicles by distance");
-                    System.out.println("5 -> delete vehicle");
+                    System.out.println("4 -> show list of vehicles");
+                    System.out.println("5 -> sort vehicles by distance");
+                    System.out.println("6 -> delete vehicle");
                     System.out.println("0 -> return");
                     switch (Integer.parseInt(scanner.nextLine())) {
                         case 1:
@@ -107,10 +124,16 @@ public class Menu {
                         case 2:
                             vehicleImplementService.selectVehicle();
                             break;
+                        case 3:
+                            vehicleImplementService.modifyVehicle();
+                            break;
                         case 4:
-                            vehicleImplementService.sortVehiclesByDistance();
+                            vehicleImplementService.readVehicles();
                             break;
                         case 5:
+                            vehicleImplementService.sortVehiclesByDistance();
+                            break;
+                        case 6:
                             vehicleImplementService.removeVehicle();
                             break;
                         default:
@@ -121,8 +144,10 @@ public class Menu {
                     System.out.println("Options for employee: ");
                     System.out.println("1 -> create employee");
                     System.out.println("2 -> select employee");
-                    System.out.println("3 -> sort employee by salary");
-                    System.out.println("4 -> delete employee");
+                    System.out.println("3 -> modify employee");
+                    System.out.println("4 -> show list of employees");
+                    System.out.println("5 -> sort employee by salary");
+                    System.out.println("6 -> delete employee");
                     System.out.println("0 -> return");
                     switch (Integer.parseInt(scanner.nextLine())) {
                         case 1:
@@ -132,9 +157,15 @@ public class Menu {
                             employeeImplementService.selectEmployee();
                             break;
                         case 3:
-                            employeeImplementService.sortEmployeesBySalary();
+                            employeeImplementService.modifyEmployee();
                             break;
                         case 4:
+                            employeeImplementService.readEmployees();
+                            break;
+                        case 5:
+                            employeeImplementService.sortEmployeesBySalary();
+                            break;
+                        case 6:
                             employeeImplementService.fireEmployee();
                             break;
                         default:
@@ -145,9 +176,11 @@ public class Menu {
                     System.out.println("Options for driver: ");
                     System.out.println("1 -> create driver");
                     System.out.println("2 -> select driver");
-                    System.out.println("3 -> sort driver by qualification");
-                    System.out.println("4 -> sort driver by salary");
-                    System.out.println("5 -> delete driver");
+                    System.out.println("3 -> modify driver");
+                    System.out.println("4 -> show list of drivers");
+                    System.out.println("5 -> sort driver by qualification");
+                    System.out.println("6 -> sort driver by salary");
+                    System.out.println("7 -> delete driver");
                     System.out.println("0 -> return");
                     switch (Integer.parseInt(scanner.nextLine())) {
                         case 1:
@@ -157,12 +190,18 @@ public class Menu {
                             driverImplementService.selectDriver();
                             break;
                         case 3:
-                            driverImplementService.sortDriversByQualification();
+                            driverImplementService.modifyDriver();
                             break;
                         case 4:
-                            driverImplementService.sortDriversBySalary();
+                            driverImplementService.readDrivers();
                             break;
                         case 5:
+                            driverImplementService.sortDriversByQualification();
+                            break;
+                        case 6:
+                            driverImplementService.sortDriversBySalary();
+                            break;
+                        case 7:
                             driverImplementService.fireDriver();
                             break;
                         default:
@@ -173,8 +212,9 @@ public class Menu {
                     System.out.println("Options for client: ");
                     System.out.println("1 -> create client");
                     System.out.println("2 -> select client");
-                    System.out.println("3 -> modify client");
-                    System.out.println("4 -> delete client");
+                    System.out.println("3 -> show list of clients");
+                    System.out.println("4 -> modify client");
+                    System.out.println("5 -> delete client");
                     System.out.println("0 -> return");
                     switch (Integer.parseInt(scanner.nextLine())) {
                         case 1:
@@ -184,9 +224,12 @@ public class Menu {
                             clientImplementService.selectClient();
                             break;
                         case 3:
-                            clientImplementService.modifyClient();
+                            clientImplementService.readClients();
                             break;
                         case 4:
+                            clientImplementService.modifyClient();
+                            break;
+                        case 5:
                             clientImplementService.removeClient();
                             break;
                         default:

@@ -1,6 +1,10 @@
 package company;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NegativeOrZero;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 
 @Entity
@@ -10,15 +14,18 @@ public class Package {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "name should not be empty")
     @Column(name = "name")
     private String name;
 
     @Enumerated(EnumType.STRING)
     private TypeOfPackage typeOfPackage;
 
+    @DecimalMin(value = "0.1", message = "package weight has to be at least 0.1")
     @Column(name = "packageWeight")
     private BigDecimal packageWeight;
 
+    @DecimalMin(value = "0.1", message = "package price has to be at least 0.1")
     @Column(name = "packagePrice")
     private BigDecimal packagePrice;
 

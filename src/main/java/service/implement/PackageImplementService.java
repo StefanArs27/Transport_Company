@@ -7,6 +7,7 @@ import dao.VehicleDAO;
 import service.PackageService;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 public class PackageImplementService implements PackageService {
@@ -20,7 +21,7 @@ public class PackageImplementService implements PackageService {
     public void addPackage() {
         Package pac = new Package();
 
-        System.out.println("Enter name of package:");
+        System.out.println("\nEnter name of package:");
         pac.setName(scanner.nextLine());
 
         System.out.println("Enter type of package:");
@@ -55,11 +56,12 @@ public class PackageImplementService implements PackageService {
 
         PackageDAO.savePackage(pac);
         System.out.println("Package -> " + pac.getId() + " " + pac.getName() + " was successfully added.");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     @Override
     public void modifyPackage() {
-        System.out.println("Enter id of package:");
+        System.out.println("\nEnter id of package:");
         Package pac = PackageDAO.getAPackage(Long.parseLong(scanner.nextLine()));
 
         System.out.println("Choose what to modify:");
@@ -100,20 +102,29 @@ public class PackageImplementService implements PackageService {
                 break;
         }
         PackageDAO.saveOrUpdatePackage(pac);
-
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     @Override
     public void selectPackage() {
-        System.out.println("Enter package id:");
+        System.out.println("\nEnter package id:");
         PackageDAO.getAPackage(Long.parseLong(scanner.nextLine()));
     }
 
     @Override
+    public void readPackages() {
+        List<Package> packageList = PackageDAO.readPackages();
+        System.out.println("\nList of packages:");
+        packageList.forEach(System.out::println);
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    @Override
     public void removePackage() {
-        System.out.println("Enter package id:");
+        System.out.println("\nEnter package id:");
         Package pac = PackageDAO.getAPackage(Long.parseLong(scanner.nextLine()));
         PackageDAO.deletePackage(pac);
         System.out.println("Package -> " + pac.getId() + " " + pac.getName() + " was successfully removed.");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 }

@@ -2,7 +2,6 @@ package dao;
 
 import company.Company;
 import configuration.SessionFactoryUtil;
-import dto.EmployeeDTO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -65,37 +64,6 @@ public class CompanyDAO {
             transaction.commit();
         }
         return company;
-    }
-
-    public static List<Employee> getCompanyEmployees(long id) {
-        Company company;
-        try (Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            company = session.createQuery(
-                            "select c from Company c" +
-                                    " join fetch c.employees" +
-                                    " where c.id = :id",
-                            Company.class)
-                    .setParameter("id", id).getSingleResult();
-            transaction.commit();
-        }
-        return company.getEmployees();
-    }
-
-    public static List<EmployeeDTO> getCompanyEmployeesDTO(long id) {
-        List<EmployeeDTO> employees;
-        try (Session session = configuration.SessionFactoryUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            employees = session.createQuery(
-                            "select new dto.EmployeeDTO(e.id, e.name) from Employee e" +
-                                    " join e.company c " +
-                                    "where c.id = :id",
-                            EmployeeDTO.class)
-                    .setParameter("id", id)
-                    .getResultList();
-            transaction.commit();
-        }
-        return employees;
     }
 
     //Sorting - ascending

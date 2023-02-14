@@ -1,10 +1,8 @@
 package service.implement;
 
-import company.TypeOfPackage;
 import company.TypeOfVehicle;
 import company.Vehicle;
 import dao.CompanyDAO;
-import dao.DriverDAO;
 import dao.VehicleDAO;
 import service.VehicleService;
 
@@ -26,7 +24,7 @@ public class VehicleImplementService implements VehicleService {
     public void addVehicle() {
         Vehicle vehicle = new Vehicle();
 
-        System.out.println("Select type of vehicle: ");
+        System.out.println("\nSelect type of vehicle: ");
         System.out.println("1 - BUS");
         System.out.println("2 - VAN");
         System.out.println("3 - TRUCK");
@@ -66,11 +64,12 @@ public class VehicleImplementService implements VehicleService {
 
         VehicleDAO.saveVehicle(vehicle);
         System.out.println("Vehicle -> " + vehicle.getId() + " " + vehicle.getBrand() + " was successfully added.");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     @Override
     public void modifyVehicle() {
-        System.out.println("Enter id of vehicle:");
+        System.out.println("\nEnter id of vehicle:");
 
         Vehicle vehicle = VehicleDAO.getVehicle(Long.parseLong(scanner.nextLine()));
 
@@ -84,7 +83,7 @@ public class VehicleImplementService implements VehicleService {
 
         switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
-                System.out.println("Choose type of vehicle:");
+                System.out.println("\nChoose type of vehicle:");
                 System.out.println("1 - BUS");
                 System.out.println("2 - VAN");
                 System.out.println("3 - TRUCK");
@@ -119,19 +118,30 @@ public class VehicleImplementService implements VehicleService {
         }
 
         VehicleDAO.saveOrUpdateVehicle(vehicle);
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     @Override
-    public Vehicle selectVehicle() {
-        System.out.println("Enter id of vehicle:");
+    public void selectVehicle() {
+        System.out.println("\nEnter id of vehicle:");
 
-        return VehicleDAO.getVehicle(Long.parseLong(scanner.nextLine()));
+        System.out.println(VehicleDAO.getVehicle(Long.parseLong(scanner.nextLine())) + " was selected.");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     @Override
-    public List<Vehicle> sortVehiclesByDistance() {
+    public void readVehicles() {
+        List<Vehicle> vehicleList = VehicleDAO.readVehicles();
 
-        System.out.println("Choose options: ");
+        System.out.println("\nList of vehicles:");
+        vehicleList.forEach(System.out::println);
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    @Override
+    public void sortVehiclesByDistance() {
+
+        System.out.println("\nChoose options: ");
         System.out.println("1 - ascending");
         System.out.println("2 - descending");
         System.out.println("0 - exit");
@@ -149,15 +159,17 @@ public class VehicleImplementService implements VehicleService {
                 System.out.println("Nothing will be done to the driver table.");
                 break;
         }
-
-        return vehicles;
+        System.out.println("Sorted vehicle list:");
+        vehicles.forEach(System.out::println);
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     @Override
     public void removeVehicle() {
-        System.out.println("Enter id of vehicle:");
+        System.out.println("\nEnter id of vehicle:");
         Vehicle vehicle = VehicleDAO.getVehicle(Long.parseLong(scanner.nextLine()));
         VehicleDAO.deleteVehicle(vehicle);
         System.out.println("Vehicle -> " + vehicle.getId() + " " + vehicle.getBrand() + " was successfully removed.");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 }

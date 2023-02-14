@@ -3,6 +3,7 @@ package people;
 import company.Company;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -17,6 +18,7 @@ public class Driver extends Person {
     @JoinColumn(name = "company")
     private Company company;
 
+    @DecimalMin(value = "800", message = "salary cannot be under 800")
     @Column(name = "salary")
     private BigDecimal salary;
 
@@ -90,5 +92,15 @@ public class Driver extends Person {
 
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return  "Driver{" +
+                super.toString() +
+                ", qualification=" + qualification +
+                ", company=" + company +
+                ", salary=" + salary +
+                "}";
     }
 }

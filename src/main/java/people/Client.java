@@ -59,9 +59,7 @@ public class Client extends Person{
 
     @Override
     public String toString() {
-        return
-                ", company=" + company +
-                '}';
+        return super.toString();
     }
 
     //many to many with company

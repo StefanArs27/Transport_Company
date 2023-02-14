@@ -48,7 +48,7 @@ public class DriverDAO {
 
     public static List<Driver> readDrivers() {
         try (Session session = SessionFactoryUtil.getSessionFactory().openSession()){
-            return session.createQuery("select a from driver a", Driver.class).getResultList();
+            return session.createQuery("SELECT a FROM driver a", Driver.class).getResultList();
         }
     }
 

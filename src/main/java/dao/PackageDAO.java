@@ -46,7 +46,7 @@ public class PackageDAO {
     }
 
     //CRUD - Read
-    public static List<Package> readPackages(List<Package> packages) {
+    public static List<Package> readPackages() {
         try(Session session = SessionFactoryUtil.getSessionFactory().openSession()) {
             return session.createQuery("SELECT a FROM Package a", Package.class).getResultList();
         }

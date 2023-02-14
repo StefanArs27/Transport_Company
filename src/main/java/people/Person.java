@@ -1,5 +1,8 @@
 package people;
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -12,14 +15,15 @@ public  class Person {
     @Column(name = "ID")
     private long id;
 
-    
+    @Pattern(regexp = "\\b[A-Z][a-z]* [A-Z][a-z]*( [A-Z])?\\b", message = "first and last name should start with capital letter")
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
+    @Positive(message = "age cannot be of negative value")
     @Column(name = "age", nullable = false)
     private int age;
 
-
+    @Size(min = 10, max = 10, message = "phone number must be 10 digits")
     @Column(name = "phone_number",length = 10)
     private String phoneNumber;
 
@@ -53,5 +57,13 @@ public  class Person {
     }
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", age=" + age +
+                ", phoneNumber='" + phoneNumber + '\'';
     }
 }

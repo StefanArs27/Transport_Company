@@ -1,6 +1,5 @@
 package service.implement;
 
-import company.Company;
 import dao.DriverDAO;
 import people.Driver;
 import people.DriverQualification;
@@ -8,10 +7,8 @@ import service.DriverService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class DriverImplementService implements DriverService {
 
@@ -24,7 +21,7 @@ public class DriverImplementService implements DriverService {
     @Override
     public void addDriver() {
         Driver driver = new Driver();
-        System.out.println("Enter full name: ");
+        System.out.println("\nEnter full name: ");
         driver.setFullName(scanner.nextLine());
 
         System.out.println("Enter age: ");
@@ -54,7 +51,6 @@ public class DriverImplementService implements DriverService {
                 driver.setDriverQualification(DriverQualification.VAN);
                 break;
             default:
-                System.out.println("Nothing was chosen.");
                 break;
         }
 
@@ -63,20 +59,87 @@ public class DriverImplementService implements DriverService {
 
         DriverDAO.saveDriver(driver);
         System.out.println("Driver " + driver.getId() + " " + driver.getFullName() + " was successfully added.");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     @Override
-    public Driver selectDriver() {
-        System.out.println("Enter id of driver:");
+    public void modifyDriver() {
+        System.out.println("\nEnter id of driver:");
+        Driver driver = DriverDAO.getDriver(Long.parseLong(scanner.nextLine()));
+
+        System.out.println("Choose option to modify:");
+        System.out.println("1 -> name");
+        System.out.println("2 -> age");
+        System.out.println("3 -> phone number");
+        System.out.println("4 -> driver qualification");
+        System.out.println("5 -> salary");
+        System.out.println("0 -> return");
+
+        switch (Integer.parseInt(scanner.nextLine())) {
+            case 1:
+                System.out.println("Enter new name:");
+                driver.setFullName(scanner.nextLine());
+                break;
+            case 2:
+                System.out.println("Enter new age:");
+                driver.setAge(Integer.parseInt(scanner.nextLine()));
+                break;
+            case 3:
+                System.out.println("Enter new phone number:");
+                driver.setPhoneNumber(scanner.nextLine());
+                break;
+            case 4:
+                System.out.println("Choose new driver qualification:");
+                System.out.println("1 - bus");
+                System.out.println("2 - dangerous-packages");
+                System.out.println("3 - truck");
+                System.out.println("4 - van");
+                System.out.println("0 - Exit");
+                switch (Integer.parseInt(scanner.nextLine())) {
+                    case 1:
+                        driver.setDriverQualification(DriverQualification.BUS);
+                        break;
+                    case 2:
+                        driver.setDriverQualification(DriverQualification.SPECIAL_PACKAGES);
+                        break;
+                    case 3:
+                        driver.setDriverQualification(DriverQualification.TRUCK);
+                        break;
+                    case 4:
+                        driver.setDriverQualification(DriverQualification.VAN);
+                        break;
+                    default:
+                        break;
+                }
+            case 5:
+                System.out.println("Enter new salary:");
+                driver.setSalary(BigDecimal.valueOf(Float.parseFloat(scanner.nextLine())));
+                break;
+            default:
+                break;
+        }
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    @Override
+    public void selectDriver() {
+        System.out.println("\nEnter id of driver:");
         System.out.println(DriverDAO.getDriver(Long.parseLong(scanner.nextLine())) + " was selected.");
-        return DriverDAO.getDriver(Long.parseLong(scanner.nextLine()));
     }
 
     @Override
-    public List<Driver> sortDriversByQualification() {
+    public void readDrivers() {
+        List<Driver> driverList = DriverDAO.readDrivers();
+        System.out.println("\nList of drivers:");
+        driverList.forEach(System.out::println);
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    @Override
+    public void sortDriversByQualification() {
         List<Driver> drivers = new ArrayList<>();
 
-        System.out.println("Choose options: ");
+        System.out.println("\nChoose options: ");
         System.out.println("1 - ascending");
         System.out.println("2 - descending");
         System.out.println("0 - exit");
@@ -93,14 +156,16 @@ public class DriverImplementService implements DriverService {
                 break;
         }
 
-        return drivers;
+        System.out.println("Sorted list of drivers:");
+        drivers.forEach(System.out::println);
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     @Override
-    public List<Driver> sortDriversBySalary() {
+    public void sortDriversBySalary() {
         List<Driver> drivers = new ArrayList<>();
 
-        System.out.println("Choose options: ");
+        System.out.println("\nChoose options: ");
         System.out.println("1 - ascending");
         System.out.println("2 - descending");
         System.out.println("0 - exit");
@@ -116,15 +181,17 @@ public class DriverImplementService implements DriverService {
                 System.out.println("Nothing will be done to the driver table.");
                 break;
         }
-
-        return drivers;
+        System.out.println("Sorted list of drivers:");
+        drivers.forEach(System.out::println);
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     @Override
     public void fireDriver() {
-        System.out.println("Select driver ID: ");
+        System.out.println("\nSelect driver ID: ");
         Driver driver = DriverDAO.getDriver(Long.parseLong(scanner.nextLine()));
         DriverDAO.deleteDriver(driver);
         System.out.println("Driver -> " + driver.getId() + " " + driver.getFullName() + " was successfully removed.");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------\n");
     }
 }

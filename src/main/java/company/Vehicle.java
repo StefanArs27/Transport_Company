@@ -1,6 +1,9 @@
 package company;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,18 +20,22 @@ public class Vehicle {
     @Enumerated(EnumType.STRING)
     private TypeOfVehicle typeOfVehicle;
 
+    @NotBlank(message = "brand should not be empty")
     @Column(name = "brand", nullable = false)
     private String brand;
 
+    @NotBlank(message = "destination point should not be empty")
     @Column(name = "destinationPoint")
     private String destinationPoint;
 
+    @Positive(message = "distance cannot be of negative value")
     @Column(name = "distance")
     private BigDecimal distance;
 
     @Column(name = "startDate")
     private LocalDate startDate;
 
+    @Pattern(regexp = "^\\\\d{4}-\\\\d{2}-\\\\d{2}$", message = "end date should follow the specific pattern: yyyy-mm-dd")
     @Column(name = "endDate")
     private LocalDate endDate;
 
@@ -98,4 +105,16 @@ public class Vehicle {
         this.company = company;
     }
 
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "id=" + id +
+                ", typeOfVehicle=" + typeOfVehicle +
+                ", brand='" + brand + '\'' +
+                ", destinationPoint='" + destinationPoint + '\'' +
+                ", distance=" + distance +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }
